@@ -12,10 +12,10 @@ import {
 import { baseOperators } from '../../client/constants/operators';
 
 export class CompletionSemanticSimilarity extends BaseStep implements StepInterface {
-  protected stepName: string = 'Check OpenAI GPT semantic similarity of response to provided text from completion';
+  protected stepName: string = 'Compare Anthropic semantic similarity of response to provided text from completion';
 
   // tslint:disable-next-line:max-line-length quotemark
-  protected stepExpression: string = `OpenAI model (?<model>[a-zA-Z0-9_ -.]+) response to "(?<prompt>[a-zA-Z0-9_ -'".,?!]+)" semantically compared with "(?<comparetext>[a-zA-Z0-9_ -'".,?!]+)" should (?<operator>be set|not be set|be less than|be greater than|be one of|be|contain|not be one of|not be|not contain|match|not match) ?(?<semanticsimilarity>.+)?`;
+  protected stepExpression: string = `Anthropic model (?<model>[a-zA-Z0-9_ -.]+) response to "(?<prompt>[a-zA-Z0-9_ -'".,?!]+)" semantically compared with "(?<comparetext>[a-zA-Z0-9_ -'".,?!]+)" should (?<operator>be set|not be set|be less than|be greater than|be one of|be|contain|not be one of|not be|not contain|match|not match) ?(?<semanticsimilarity>.+)?`;
 
   protected stepType: StepDefinition.Type = StepDefinition.Type.VALIDATION;
 
@@ -102,7 +102,7 @@ export class CompletionSemanticSimilarity extends BaseStep implements StepInterf
       message['content'] = prompt;
       messages.push(message);
       const completion = await this.client.getChatCompletion(model, messages);
-      const response = completion.choices[0].message.content;
+      const response = completion.text_response;
       const levensteinDistance = CompletionSemanticSimilarity.levensteinDistance(response, compareText);
       const diceCoefficient = stringSimilarity.compareTwoStrings(response, compareText);
       const result = this.assert(operator, levensteinDistance.toString(), expectedSimilarity.toString(), 'response');
@@ -113,7 +113,6 @@ export class CompletionSemanticSimilarity extends BaseStep implements StepInterf
         levensteinDistance,
         diceCoefficient,
         usage: completion.usage,
-        created: completion.created,
         request: completion.request_payload,
       };
       const records = this.createRecords(returnObj, stepData.__stepOrder);

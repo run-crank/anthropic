@@ -6,7 +6,7 @@ export class CompletionAwareMixin {
 
   client: Anthropic;
 
-  public async getChatCompletion(model: string, messages: any[], functions?: any[]): Promise<any> {
+  public async getChatCompletion(model: string, messages: any[], functions?: any[]): Promise<ClientResponseWrapper> {
     const startTime = Date.now();
     await this.clientReady;
     try {
