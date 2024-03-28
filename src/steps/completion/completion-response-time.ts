@@ -10,10 +10,10 @@ import {
 import { baseOperators } from '../../client/constants/operators';
 
 export class CompletionResponseTime extends BaseStep implements StepInterface {
-  protected stepName: string = 'Check OpenAI GPT prompt response response time from request to completion in milliseconds';
+  protected stepName: string = 'Compare Anthropic prompt response response time from request to completion in milliseconds';
 
   // tslint:disable-next-line:max-line-length
-  protected stepExpression: string = 'OpenAI model (?<model>[a-zA-Z0-9_-]+) response time in response to "(?<prompt>[a-zA-Z0-9_ -]+)" should (?<operator>be set|not be set|be less than|be greater than|be one of|be|contain|not be one of|not be|not contain|match|not match) ?(?<expectation>.+)? ms';
+  protected stepExpression: string = 'Anthropic model (?<model>[a-zA-Z0-9_-]+) response time in response to "(?<prompt>[a-zA-Z0-9_ -]+)" should (?<operator>be set|not be set|be less than|be greater than|be one of|be|contain|not be one of|not be|not contain|match|not match) ?(?<expectation>.+)? ms';
 
   protected stepType: StepDefinition.Type = StepDefinition.Type.VALIDATION;
 
@@ -101,7 +101,7 @@ export class CompletionResponseTime extends BaseStep implements StepInterface {
       messages.push(message);
       const completion = await this.client.getChatCompletion(model, messages);
       const responseTime = completion.response_time;
-      const response = completion.choices[0].message.content;
+      const response = completion.text_response;
       const result = this.assert(operator, responseTime.toString(), expectation.toString(), 'response');
       const returnObj = {
         model,
@@ -109,7 +109,6 @@ export class CompletionResponseTime extends BaseStep implements StepInterface {
         response,
         responsetime: responseTime,
         usage: completion.usage,
-        created: completion.created,
         request: completion.request_payload,
       };
       const records = this.createRecords(returnObj, stepData.__stepOrder);

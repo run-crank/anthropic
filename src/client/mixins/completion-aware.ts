@@ -1,32 +1,35 @@
-import openai from 'openai';
-import { ChatCompletionWrapper } from '../open-ai-response-wrapper';
+import Anthropic from '@anthropic-ai/sdk';
+import { ClientResponseWrapper } from '../client-response-wrapper';
 
 export class CompletionAwareMixin {
   clientReady: Promise<boolean>;
 
-  client: openai;
+  client: Anthropic;
 
-  public async getChatCompletion(model: string, messages: any[], functions?: any[]): Promise<any> {
+  public async getChatCompletion(model: string, messages: any[], functions?: any[]): Promise<ClientResponseWrapper> {
     const startTime = Date.now();
     await this.clientReady;
     try {
       const requestObject = {
-        model,
-        messages,
+        max_tokens: 1024,
+        model: model,
+        messages: messages,
       };
       if (functions) {
         requestObject['functions'] = functions;
       }
 
-      const response = await this.client.chat.completions.create(requestObject);
-      if (!response && !response.choices && !response.choices[0] && !response.choices[0].message) {
-        throw new Error(`Error response from OpenAI API: ${JSON.stringify(response)}`);
+      const response = await this.client.messages.create(requestObject);
+
+      if (!response && !response.content && !response.content[0] && !response.content[0].text) {
+        throw new Error(`Error response from Anthropic API: ${JSON.stringify(response)}`);
       }
+
       const endTime = Date.now();
-      const responseWrapper = new ChatCompletionWrapper(response, endTime - startTime, requestObject);
+      const responseWrapper = new ClientResponseWrapper(response, endTime - startTime, requestObject);
       return responseWrapper;
     } catch (error) {
-      throw new Error(`Error response from OpenAI API: ${error.message}`);
+      throw new Error(`Error response from Anthropic API: ${error.message}`);
     }
   }
 }
