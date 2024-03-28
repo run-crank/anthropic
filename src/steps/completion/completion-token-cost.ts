@@ -47,7 +47,7 @@ export class CompletionTokenCost extends BaseStep implements StepInterface {
     {
       field: 'expectation',
       type: FieldDefinition.Type.NUMERIC,
-      description: 'Expected GPT prompt/response/total token cost',
+      description: 'Expected GPT input/output/total token cost',
       optionality: FieldDefinition.Optionality.OPTIONAL,
     },
   ];
