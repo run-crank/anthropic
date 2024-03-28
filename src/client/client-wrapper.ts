@@ -3,9 +3,9 @@ import { Field } from '../core/base-step';
 import { FieldDefinition } from '../proto/cog_pb';
 import {
   CompletionAwareMixin,
-  EmbeddingsAwareMixin,
 } from './mixins';
 import openai from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 
 /**
  * This is a wrapper class around the API client for your Cog. An instance of
@@ -24,8 +24,8 @@ class ClientWrapper {
   public static expectedAuthFields: Field[] = [{
     field: 'apiKey',
     type: FieldDefinition.Type.STRING,
-    description: 'OpenAI API Key',
-    help: 'OpenAI API Key',
+    description: 'Anthropic API Key',
+    help: 'Anthropic API Key',
   }];
 
   /**
@@ -34,7 +34,7 @@ class ClientWrapper {
    */
   auth: grpc.Metadata;
 
-  client: openai;
+  client: Anthropic;
 
   clientReady: Promise<boolean>;
 
@@ -50,7 +50,7 @@ class ClientWrapper {
    *   simplify automated testing. Should default to the class/constructor of
    *   the underlying/wrapped API client.
    */
-  constructor(auth: grpc.Metadata, clientConstructor = openai.OpenAI) {
+  constructor(auth: grpc.Metadata, clientConstructor = Anthropic) {
     // Call auth.get() for any field defined in the static expectedAuthFields
     // array here. The argument passed to get() should match the "field" prop
     // declared on the definition object above.
@@ -63,11 +63,9 @@ class ClientWrapper {
 }
 
 interface ClientWrapper extends
-  CompletionAwareMixin,
-  EmbeddingsAwareMixin {}
+  CompletionAwareMixin {}
 applyMixins(ClientWrapper, [
   CompletionAwareMixin,
-  EmbeddingsAwareMixin,
 ]);
 
 function applyMixins(derivedCtor: any, baseCtors: any[]) {
