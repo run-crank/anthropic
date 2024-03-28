@@ -21,7 +21,7 @@ class ClientWrapper {
    * If your Cog does not require authentication, set this to an empty array.
    */
   public static expectedAuthFields: Field[] = [{
-    field: 'apiKey',
+    field: 'AnthropicApiKey',
     type: FieldDefinition.Type.STRING,
     description: 'Anthropic API Key',
     help: 'Anthropic API Key',
@@ -55,7 +55,7 @@ class ClientWrapper {
     // declared on the definition object above.
     this.auth = auth;
     this.client = new clientConstructor({
-      apiKey: this.auth.get('apiKey').toString(), // defaults to process.env["OPENAI_API_KEY"]
+      apiKey: this.auth.get('AnthropicApiKey').toString(), // defaults to process.env["OPENAI_API_KEY"]
     });
     this.clientReady = Promise.resolve(true);
   }
