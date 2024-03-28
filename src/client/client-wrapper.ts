@@ -4,7 +4,6 @@ import { FieldDefinition } from '../proto/cog_pb';
 import {
   CompletionAwareMixin,
 } from './mixins';
-import openai from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 
 /**
