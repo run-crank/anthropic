@@ -1,0 +1,24 @@
+scenario: Compare Claude 3 Sonnet and Claude 3 Opus
+description: >
+  Compare Claude 3 Sonnet and Claude 3 Opus
+
+tokens:
+  test:
+    prompt: Explain Newton's third law of motion in simple terms in less than 10 words.
+    modela: claude-3-sonnet-20240229
+    modelb: claude-3-opus-20240229
+    abOperator: match
+    abExpectation: equal | opposite | reaction
+    semanticSimilarityOperator: be greater than
+    semanticSimilarityExpectation: Every action has an equal and opposite reaction
+    semanticSimilarity: 0.4
+steps:
+- step: Anthropic model {{test.modela}} and {{test.modelb}} responses to "{{test.prompt}}" should {{test.abOperator}} {{test.abExpectation}}
+  data:
+    __stepOrder: 1
+- step: Anthropic model {{test.modela}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
+  data:
+    __stepOrder: 2
+- step: Anthropic model {{test.modelb}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
+  data:
+    __stepOrder: 3

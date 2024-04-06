@@ -1,0 +1,18 @@
+scenario: Compare Claude 3 Haiku And Claude 3 Sonnet Completion Token Cost
+description: Asks a simple question to Claude 3 Haiku and Claude 3 Sonnet to compare token cost (expected token is based on ChatGPT 3.5 token cost)
+
+tokens:
+  test:
+    trivialPrompt: give me a summary of the bee movie
+    operator: be less than
+    expectation: 250
+    type: completion
+    modela: claude-3-haiku-20240307
+    modelb: claude-3-sonnet-20240229
+steps:
+- step: Anthropic model {{test.modela}} {{test.type}} token cost in response to "{{test.trivialPrompt}}" should {{test.operator}} {{test.expectation}} tokens
+  data:
+    __stepOrder: 1
+- step: Anthropic model {{test.modelb}} {{test.type}} token cost in response to "{{test.trivialPrompt}}" should {{test.operator}} {{test.expectation}} tokens
+  data:
+    __stepOrder: 2

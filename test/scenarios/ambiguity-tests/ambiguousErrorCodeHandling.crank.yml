@@ -5,20 +5,20 @@ description: >
 tokens:
   test:
     prompt: I received an error code.
-    modela: gpt-4-0613
-    modelb: gpt-4-1106-preview
-    modelc: gpt-4-0125-preview
+    modela: claude-3-haiku-20240307
+    modelb: claude-3-sonnet-20240229
+    modelc: claude-3-opus-20240229
     semanticSimilarityExpectation: Please provide the error code for further assistance.
     semanticSimilarityOperator: be greater than
     semanticSimilarity: 0.2
 
 steps:
-  - step: OpenAI model {{test.modela}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
+  - step: Anthropic model {{test.modela}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
     data:
       __StepOrder: 1
-  - step: OpenAI model {{model.b}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
+  - step: Anthropic model {{model.b}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
     data:
       __StepOrder: 2
-  - step: OpenAI model {{model.c}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
+  - step: Anthropic model {{model.c}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
     data:
       __StepOrder: 3

@@ -7,21 +7,21 @@ tokens:
     prompt: Person A has a loan of $1000 and is paying it off at a rate of 50 dollars per month. 
             Person B has a loan of $2000 and is paying it off at a rate of 200 dollars per month. 
             Who will pay off their loan first? Answer as A or B only.
-    modela: gpt-4-0613
-    modelb: gpt-4-1106-preview
-    modelc: gpt-4-0125-preview
+    modela: claude-3-haiku-20240307
+    modelb: claude-3-sonnet-20240229
+    modelc: claude-3-opus-20240229
     equalsExpectation: B
     equalsOperator: be
     
 
 steps:
-- step: OpenAI model {{test.modela}} response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
+- step: Anthropic model {{test.modela}} response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
   data:
     __StepOrder: 1
-- step: OpenAI model {{test.modelb}} response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
+- step: Anthropic model {{test.modelb}} response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
   data:
     __StepOrder: 2
-- step: OpenAI model {{test.modelc}} response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
+- step: Anthropic model {{test.modelc}} response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
   data:
     __StepOrder: 3
 
