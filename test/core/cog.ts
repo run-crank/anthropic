@@ -25,7 +25,7 @@ describe('Cog:GetManifest', () => {
     const version: string = JSON.parse(fs.readFileSync('package.json').toString('utf8')).version;
     cogUnderTest.getManifest(null, (err, manifest: CogManifest) => {
       expect(manifest.getName()).to.equal('stackmoxie/anthropic');
-      expect(manifest.getLabel()).to.equal('OpenAI');
+      expect(manifest.getLabel()).to.equal('Anthropic');
       expect(manifest.getVersion()).to.equal(version);
       done();
     });
