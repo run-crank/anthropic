@@ -25,12 +25,12 @@ export class CompletionTokenCost extends BaseStep implements StepInterface {
     {
       field: 'prompt',
       type: FieldDefinition.Type.STRING,
-      description: 'User Prompt to send to GPT',
+      description: 'User Prompt to send to Anthropic',
     },
     {
       field: 'model',
       type: FieldDefinition.Type.STRING,
-      description: 'GPT Model to use for completion',
+      description: 'Anthropic Model to use for completion',
     },
     {
       field: 'type',
@@ -47,7 +47,7 @@ export class CompletionTokenCost extends BaseStep implements StepInterface {
     {
       field: 'expectation',
       type: FieldDefinition.Type.NUMERIC,
-      description: 'Expected GPT input/output/total token cost',
+      description: 'Expected Anthropic input/output/total token cost',
       optionality: FieldDefinition.Optionality.OPTIONAL,
     },
   ];
@@ -131,13 +131,13 @@ export class CompletionTokenCost extends BaseStep implements StepInterface {
       }
       if (e instanceof util.InvalidOperandError) {
         return this.error(
-          'There was an error checking GTP chat completion object: %s',
+          'There was an error checking Anthropic chat completion object: %s',
           [e.message],
         );
       }
 
       return this.error(
-        'There was an error checking  GTP chat completion object: %s',
+        'There was an error checking  Anthropic chat completion object: %s',
         [e.toString()],
       );
     }

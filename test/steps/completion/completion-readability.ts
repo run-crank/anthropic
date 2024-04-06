@@ -22,8 +22,8 @@ describe('CompletionReadability', () => {
     it('should return expected step metadata', () => {
       const stepDef: StepDefinition = stepUnderTest.getDefinition();
       expect(stepDef.getStepId()).to.equal('CompletionReadability');
-      expect(stepDef.getName()).to.equal('Check OpenAI GPT prompt response FRES reading ease evaluation');
-      expect(stepDef.getExpression()).to.equal(`OpenAI model (?<model>[a-zA-Z0-9_ -.]+) school level of the response to "(?<prompt>[a-zA-Z0-9_ -'".,?!]+)" should (?<operator>be less than|be greater than|be one of|be|not be one of|not be) ?(?<schoollevel>.+)?`);
+      expect(stepDef.getName()).to.equal('Check Anthropic prompt response FRES reading ease evaluation');
+      expect(stepDef.getExpression()).to.equal(`Anthropic model (?<model>[a-zA-Z0-9_ -.]+) school level of the response to "(?<prompt>[a-zA-Z0-9_ -'".,?!]+)" should (?<operator>be less than|be greater than|be one of|be|not be one of|not be) ?(?<schoollevel>.+)?`);
       expect(stepDef.getType()).to.equal(StepDefinition.Type.VALIDATION);
     });
 
@@ -51,10 +51,10 @@ describe('CompletionReadability', () => {
   });
 
   describe('ExecuteStep', () => {
-    describe('GPT prompt response meets readability expectation', () => {
+    describe('Anthropic prompt response meets readability expectation', () => {
       beforeEach(() => {
-        const expectedModel: string = 'gpt-model';
-        const expectedPrompt: string = 'Hello, GPT!';
+        const expectedModel: string = 'claude-model';
+        const expectedPrompt: string = 'Hello, Anthropic!';
         protoStep.setData(Struct.fromJavaScript({
           model: expectedModel,
           prompt: expectedPrompt,
@@ -75,10 +75,10 @@ describe('CompletionReadability', () => {
       });
     });
 
-    describe('GPT prompt response does not meet readability expectation', () => {
+    describe('Anthropic prompt response does not meet readability expectation', () => {
       beforeEach(() => {
-        const expectedModel: string = 'gpt-model';
-        const expectedPrompt: string = 'Hello, GPT!';
+        const expectedModel: string = 'claude-model';
+        const expectedPrompt: string = 'Hello, Anthropic!';
         protoStep.setData(Struct.fromJavaScript({
           model: expectedModel,
           prompt: expectedPrompt,
@@ -99,7 +99,7 @@ describe('CompletionReadability', () => {
       });
     });
 
-    describe('Error occurred while fetching GPT prompt response', () => {
+    describe('Error occurred while fetching Anthropic prompt response', () => {
       beforeEach(() => {
         // setup for the scenario where an error occurs during operation
         clientWrapperStub.getChatCompletion.throws('error');
