@@ -55,7 +55,7 @@ class ClientWrapper {
     // declared on the definition object above.
     this.auth = auth;
     this.client = new clientConstructor({
-      apiKey: this.auth.get('AnthropicApiKey').toString(), // defaults to process.env["OPENAI_API_KEY"]
+      apiKey: this.auth.get('AnthropicApiKey').toString(), // defaults to process.env["ANTHROPIC_API_KEY"]
     });
     this.clientReady = Promise.resolve(true);
   }

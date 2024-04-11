@@ -1,0 +1,26 @@
+scenario: Compare Claude 3 Opus and Claude 3 Sonnet
+description: >
+  Compare Claude 3 Opus and Claude 3 Sonnet
+
+tokens:
+  test:
+    prompt: List the food groups in a sentence.
+    modela: claude-3-opus-20240229
+    modelb: claude-3-sonnet-20240229
+    readabilityOperator: be greater than
+    schoolLevel: 8th and 9th grade
+    equalsOperator: match
+    equalsExpectation: fruits | vegetables | grains | proteins | dairy
+steps:
+- step: Anthropic model {{test.modela}} school level of the response to "{{test.prompt}}" should {{test.readabilityOperator}} {{test.schoolLevel}}
+  data:
+    __stepOrder: 1
+- step: Anthropic model {{test.modelb}} school level of the response to "{{test.prompt}}" should {{test.readabilityOperator}} {{test.schoolLevel}}
+  data:
+    __stepOrder: 2
+- step: Anthropic model {{test.modela}} response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
+  data:
+    __stepOrder: 2
+- step: Anthropic model {{test.modelb}} response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
+  data:
+    __stepOrder: 4

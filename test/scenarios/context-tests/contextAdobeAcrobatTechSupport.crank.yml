@@ -5,19 +5,19 @@ description: >
 tokens:
   test:
     prompt: In one sentence, what desktop operating system does Adobe Acrobat Reader support?
-    modela: gpt-4-0613
-    modelb: gpt-4-1106-preview
-    modelc: gpt-4-0125-preview
+    modela: claude-3-haiku-20240307
+    modelb: claude-3-sonnet-20240229
+    modelc: claude-3-opus-20240229
     semanticSimilarityExpectation: Adobe Acrobat Reader supports Windows and macOS
     semanticSimilarityOperator: be greater than
     semanticSimilarity: 0.2
 steps:
-- step: OpenAI model {{test.modela}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
+- step: Anthropic model {{test.modela}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
   data:
     __stepOrder: 1
-- step: OpenAI model {{test.modelb}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
+- step: Anthropic model {{test.modelb}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
   data:
     __stepOrder: 2
-- step: OpenAI model {{test.modelc}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
+- step: Anthropic model {{test.modelc}} response to "{{test.prompt}}" semantically compared with "{{test.semanticSimilarityExpectation}}" should {{test.semanticSimilarityOperator}} {{test.semanticSimilarity}}
   data:
     __stepOrder: 3

@@ -24,11 +24,11 @@ export class CompletionEquals extends BaseStep implements StepInterface {
   protected expectedFields: Field[] = [{
     field: 'prompt',
     type: FieldDefinition.Type.STRING,
-    description: 'User Prompt to send to GPT',
+    description: 'User Prompt to send to Anthropic',
   }, {
     field: 'model',
     type: FieldDefinition.Type.STRING,
-    description: 'GPT Model to use for completion',
+    description: 'Anthropic Model to use for completion',
   }, {
     field: 'operator',
     type: FieldDefinition.Type.STRING,
@@ -38,7 +38,7 @@ export class CompletionEquals extends BaseStep implements StepInterface {
   {
     field: 'expectation',
     type: FieldDefinition.Type.STRING,
-    description: 'Expected GPT response value',
+    description: 'Expected Anthropic response value',
     optionality: FieldDefinition.Optionality.OPTIONAL,
   }];
 
@@ -92,10 +92,10 @@ export class CompletionEquals extends BaseStep implements StepInterface {
         return this.error('%s Please provide one of: %s', [e.message, baseOperators.join(', ')]);
       }
       if (e instanceof util.InvalidOperandError) {
-        return this.error('There was an error checking GTP chat completion object: %s', [e.message]);
+        return this.error('There was an error checking Anthropic chat completion object: %s', [e.message]);
       }
 
-      return this.error('There was an error checking  GTP chat completion object: %s', [e.toString()]);
+      return this.error('There was an error checking  Anthropic chat completion object: %s', [e.toString()]);
     }
   }
 

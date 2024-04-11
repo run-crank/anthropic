@@ -1,0 +1,22 @@
+scenario: Compare Claude 3 Haiku And Claude 3 Sonnet
+description: >
+  Compare Claude 3 Haiku And Claude 3 Sonnet
+
+tokens:
+  test:
+    prompt: In one word, what is the view which deny claims to objectivity within a particular domain and assert that valuations in that domain are relative to the perspective of an observer or the context in which they are assessed?
+    modela: claude-3-haiku-20240307
+    modelb: claude-3-sonnet-20240229
+    equalsOperator: be
+    equalsExpectation: Relativism
+    wordCountExpectation: 1
+steps:
+- step: Anthropic model {{test.modela}} and {{test.modelb}} responses to "{{test.prompt}}" should {{test.equalsOperator}} {{test.equalsExpectation}}
+  data:
+    __stepOrder: 1
+- step: Anthropic model {{test.modela}} word count in a response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.wordCountExpectation}}
+  data:
+    __stepOrder: 2
+- step: Anthropic model {{test.modelb}} word count in a response to "{{test.prompt}}" should {{test.equalsOperator}} {{test.wordCountExpectation}}
+  data:
+    __stepOrder: 3

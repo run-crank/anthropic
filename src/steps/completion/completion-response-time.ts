@@ -25,12 +25,12 @@ export class CompletionResponseTime extends BaseStep implements StepInterface {
     {
       field: 'prompt',
       type: FieldDefinition.Type.STRING,
-      description: 'User Prompt to send to GPT',
+      description: 'User Prompt to send to Anthropic',
     },
     {
       field: 'model',
       type: FieldDefinition.Type.STRING,
-      description: 'GPT Model to use for completion',
+      description: 'Anthropic Model to use for completion',
     },
     {
       field: 'operator',
@@ -41,7 +41,7 @@ export class CompletionResponseTime extends BaseStep implements StepInterface {
     {
       field: 'expectation',
       type: FieldDefinition.Type.NUMERIC,
-      description: 'Expected GPT response time in ms',
+      description: 'Expected Anthropic response time in ms',
       optionality: FieldDefinition.Optionality.OPTIONAL,
     },
   ];
@@ -122,13 +122,13 @@ export class CompletionResponseTime extends BaseStep implements StepInterface {
       }
       if (e instanceof util.InvalidOperandError) {
         return this.error(
-          'There was an error checking GTP chat completion object: %s',
+          'There was an error checking Anthropic chat completion object: %s',
           [e.message],
         );
       }
 
       return this.error(
-        'There was an error checking  GTP chat completion object: %s',
+        'There was an error checking  Anthropic chat completion object: %s',
         [e.toString()],
       );
     }
